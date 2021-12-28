@@ -10,7 +10,7 @@ file(GLOB PROJECT_HEADERS           *.h
 file(GLOB PROJECT_SOURCES           *.cpp
                                     )
 
-add_definitions(-DGLFW_INCLUDE_NONE
+add_definitions(-DGLFW_INCLUDE_NONE -D_USE_MATH_DEFINES
                 -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
 
 add_executable(${PROJECT_NAME} 

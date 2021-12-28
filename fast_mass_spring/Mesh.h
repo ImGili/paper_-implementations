@@ -2,6 +2,8 @@
  * @Author: ImGili
  * @Description: 
  */
+#undef min
+#undef max
 #include<OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 #include<vector>
 

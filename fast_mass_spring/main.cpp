@@ -14,7 +14,7 @@ static uint32_t SCR_HEIGHT = 600;
 static GLFWwindow* window;
 
 // Init Window
-static int InitGlfwWindow();
+static bool InitGlfwWindow();
 static void Terminate();
 static void ClearWindow();
 
@@ -24,7 +24,7 @@ static void ClearWindow();
 int main()
 {
     Mesh* mesh;
-    if(InitGlfwWindow())
+    if(InitGlfwWindow()==-1)
     {
         return -1;
     }
@@ -39,7 +39,7 @@ int main()
 
 
 
-static int InitGlfwWindow()
+static bool InitGlfwWindow()
 {
     // glfw: initialize and configure
     // ------------------------------
@@ -59,7 +59,7 @@ static int InitGlfwWindow()
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        return -1;
+        return false;
     }
     glfwMakeContextCurrent(window);
     // glad: load all OpenGL function pointers
@@ -67,8 +67,9 @@ static int InitGlfwWindow()
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
+        return false;
     }
+    return true;
     // glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 

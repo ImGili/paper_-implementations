@@ -34,3 +34,12 @@ public:
 	// set index buffer
 	void useIBuff(std::vector<unsigned int>& _ibuff);
 };
+
+class MeshBuilder {
+private:
+	Mesh* result;
+
+public:
+	void uniformGrid(float w, int n);
+	Mesh* getResult();
+};

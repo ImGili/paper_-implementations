@@ -23,7 +23,9 @@ static void ClearWindow();
 
 int main()
 {
-    Mesh* mesh;
+    MeshBuilder meshbuilder;
+    meshbuilder.uniformGrid(5,5);
+    Mesh* mesh = meshbuilder.getResult();
     if(!InitGlfwWindow())
     {
         return -1;

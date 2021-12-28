@@ -24,7 +24,7 @@ static void ClearWindow();
 int main()
 {
     Mesh* mesh;
-    if(InitGlfwWindow()==-1)
+    if(!InitGlfwWindow())
     {
         return -1;
     }

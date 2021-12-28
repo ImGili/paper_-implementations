@@ -26,14 +26,17 @@ add_definitions(-DGU_PLATFORM_MACOS)
 endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+                                ./
                                 ../vendor/glad/include/
                                 ../vendor/glfw/include/
                                 ../vendor/glm/
                                 ../vendor/imgui/
                                 ../vendor/stb
+                                ../vendor/OpenMesh/src
              )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
                                 glfw
                                 ${GLAD_LIBRARIES}
+                                OpenMeshCore
                       )

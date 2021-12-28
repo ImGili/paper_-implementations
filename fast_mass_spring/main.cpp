@@ -5,6 +5,7 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
+#include"Mesh.h"
 
 // settings
 static uint32_t SCR_WIDTH = 800;
@@ -22,6 +23,7 @@ static void ClearWindow();
 
 int main()
 {
+    Mesh* mesh;
     if(InitGlfwWindow())
     {
         return -1;

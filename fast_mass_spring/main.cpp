@@ -15,6 +15,7 @@ static GLFWwindow* window;
 // Init Window
 static int InitGlfwWindow();
 static void Terminate();
+static void ClearWindow();
 
 // callback function
 
@@ -28,10 +29,7 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        ClearWindow();
     }
     Terminate();
     return 0;
@@ -75,4 +73,12 @@ static int InitGlfwWindow()
 static void Terminate()
 {
     glfwTerminate();
+}
+
+static void ClearWindow()
+{
+    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+    // -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 }

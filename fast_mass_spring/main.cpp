@@ -49,7 +49,12 @@ int main()
         shader.Bind();
         glBindVertexArray(*g_render_target);
         glEnableVertexAttribArray(0);
+        // glDrawElements(GL_TRIANGLES, mesh->ibuffLen(), GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_TRIANGLES, mesh->ibuffLen(), GL_UNSIGNED_INT, 0);
+
+        glDisable(GL_POLYGON_OFFSET_FILL);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
     Terminate();
     return 0;

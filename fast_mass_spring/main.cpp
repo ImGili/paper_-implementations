@@ -6,7 +6,7 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include"Mesh.h"
-
+#include"Shader.h"
 // settings
 static uint32_t SCR_WIDTH = 800;
 static uint32_t SCR_HEIGHT = 600;
@@ -30,6 +30,7 @@ int main()
     {
         return -1;
     }
+    Shader shader("Shaders/basic.vert", "Shaders/phong.frag");
 
     while (!glfwWindowShouldClose(window))
     {

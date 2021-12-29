@@ -3,9 +3,9 @@
 class ProgramInput
 {
 private:
-	GLuint handle; // vertex array object handle
 	GLuint vbo[4]; // vertex buffer object handles | position, normal, texture, index
 	void bufferData(unsigned int index, void* buff, size_t size);
+	GLuint handle; // vertex array object handle
 
 public:
 	ProgramInput();
@@ -16,6 +16,5 @@ public:
 	void setIndexData(unsigned int* buff, unsigned int len);
 
 	operator GLuint() const; // cast to GLuint
-
 	~ProgramInput();
 };

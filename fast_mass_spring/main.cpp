@@ -31,7 +31,7 @@ int main()
 
 
     MeshBuilder* meshBuilder = new MeshBuilder();
-    meshBuilder->uniformGrid(10, 10);
+    meshBuilder->uniformGrid(1, 10);
     Mesh* mesh = meshBuilder->getResult();
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -47,19 +47,19 @@ int main()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->ibuffLen()*sizeof(unsigned int), mesh->ibuff(), GL_STATIC_DRAW);
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(0);
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    glBindVertexArray(0);
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    // // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+    // // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+    // glBindVertexArray(0);
+    // // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+    // glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     Shader shader("Shaders/basic.vert", "Shaders/phong.frag");
     shader.Bind();
     glm::mat4 view = glm::mat4(1);
     view = glm::rotate(view, glm::radians(20.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    view = glm::translate(view, glm::vec3(0.0, 0.0, -2.0));
+    // view = glm::translate(view, glm::vec3(0.0, 0.0, -2.0));
     shader.SetMat4("uModelViewMatrix", view);
     // shader.SetMat4("uProjectionMatrix", glm::perspective((float)glm::radians(45.0f), 1.778f, 0.1f, 1000.0f));
     while (!glfwWindowShouldClose(window))
@@ -67,7 +67,8 @@ int main()
         ClearWindow();
         shader.Bind();
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+        // glEnableVertexAttribArray(0);
+        glDrawElements(GL_TRIANGLES, mesh->ibuffLen(), GL_UNSIGNED_INT, 0);
     }
     Terminate();
     return 0;

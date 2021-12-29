@@ -2,6 +2,7 @@
  * @Author: ImGili
  * @Description: 
  */
+#pragma once
 #undef min
 #undef max
 #include<OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>

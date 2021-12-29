@@ -6,6 +6,7 @@
 #include<sstream>
 #include<fstream>
 #include<iostream>
+#include <glm/gtc/type_ptr.hpp>
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
     // 1. retrieve the vertex/fragment source code from filePath
@@ -97,4 +98,13 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
 Shader::~Shader()
 {
     glDeleteProgram(RendererID);
+}
+
+void Shader::SetMat4(const std::string &name, const glm::mat4& value) const
+{
+    int flag = glGetUniformLocation(RendererID, name.c_str());
+    if (flag != -1)
+    {
+        glUniformMatrix4fv(flag, 1, GL_FALSE, glm::value_ptr(value)); 
+    }
 }

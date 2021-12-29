@@ -17,7 +17,6 @@ void Renderer::setProgramInput(ProgramInput* input) {
 void Renderer::setElementCount(unsigned int n_elements) { this->n_elements = n_elements; }
 
 void Renderer::draw() {
-	glUseProgram(*program);
 	glBindVertexArray(*input);
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

@@ -13,6 +13,7 @@ public:
     ~Shader();
 
     Shader(const char* vertexPath, const char* fragmentPath);
+    void Bind() { glUseProgram(RendererID); }
     void SetMat4(const std::string &name, const glm::mat4& value) const;
     operator GLuint() const{ return RendererID; } // cast to GLuint
 private:

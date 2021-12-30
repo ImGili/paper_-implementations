@@ -15,13 +15,17 @@ static uint32_t SCR_HEIGHT = 600;
 
 static GLFWwindow* window;
 
+Mesh* mesh;
+static ProgramInput* g_render_target; // vertex, normal, texutre, index
+
 // Init Window
 static bool InitGlfwWindow();
 static void Terminate();
 static void ClearWindow();
 
+static void UpdateRenderTarget();
+
 // callback function
-static ProgramInput* g_render_target; // vertex, normal, texutre, index
 
 int main()
 {
@@ -33,10 +37,9 @@ int main()
 
     MeshBuilder* meshBuilder = new MeshBuilder();
     meshBuilder->uniformGrid(1, 10);
-    Mesh* mesh = meshBuilder->getResult();
+    mesh = meshBuilder->getResult();
     g_render_target = new ProgramInput();
-    g_render_target->setPositionData(mesh->vbuff(), mesh->vbuffLen());
-    g_render_target->setIndexData(mesh->ibuff(), mesh->ibuffLen());
+    UpdateRenderTarget();
     
     Shader shader("Shaders/basic.vert", "Shaders/phong.frag");
     shader.Bind();
@@ -49,12 +52,25 @@ int main()
         shader.Bind();
         glBindVertexArray(*g_render_target);
         glEnableVertexAttribArray(0);
+        *(mesh->vbuff()) += 0.001f;
+        *(mesh->vbuff()+1) -= 0.001f;
+        *(mesh->vbuff()+2) += 0.001f;
         // glDrawElements(GL_TRIANGLES, mesh->ibuffLen(), GL_UNSIGNED_INT, 0);
+        
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        shader.setFloat("line_mode", 0.0f);
+        shader.setVec3("mesh_color", 0.2, 0.2, 0.5);
+        glDrawElements(GL_TRIANGLES, mesh->ibuffLen(), GL_UNSIGNED_INT, 0);
+
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(1.0f);
+        shader.setVec3("line_color", 0.1, 0.1, 0.1);
+        shader.setFloat("line_mode", 1.0f);
         glDrawElements(GL_TRIANGLES, mesh->ibuffLen(), GL_UNSIGNED_INT, 0);
 
         glDisable(GL_POLYGON_OFFSET_FILL);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        UpdateRenderTarget();
     }
     Terminate();
     return 0;
@@ -107,4 +123,12 @@ static void ClearWindow()
     // -------------------------------------------------------------------------------
     glfwSwapBuffers(window);
     glfwPollEvents();
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+static void UpdateRenderTarget()
+{
+    g_render_target->setPositionData(mesh->vbuff(), mesh->vbuffLen());
+    g_render_target->setIndexData(mesh->ibuff(), mesh->ibuffLen());
 }

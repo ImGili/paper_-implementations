@@ -44,7 +44,7 @@ int main()
     shader.Bind();
     glm::mat4 view = glm::mat4(1);
     view = glm::translate(view, glm::vec3(0.0, 0.0, -10.0f));
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1280.0f/720.0f, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 100.0f);
     shader.SetMat4("uModelViewMatrix", view);
     shader.SetMat4("uProjectionMatrix", projection);
     glEnable(GL_DEPTH_TEST);
@@ -98,7 +98,7 @@ static bool InitGlfwWindow()
 
     // glfw window creation
     // --------------------
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Fast mass spring", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
